@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     paddingLeft:8,
   }, 
   incrementButton: {
-    borderColor: '#FAB913', 
+    borderColor: '#2f95dc', 
     borderWidth: 1.5,
     width: 45,
     borderRadius: 10,

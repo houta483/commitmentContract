@@ -6,6 +6,7 @@ import * as Contacts from 'expo-contacts';
 import UserInputs from '../components/UserInputs';
 import CountDown from 'react-native-countdown-component';
 
+
 /*
 Next Steps:
 ̶3) use regex to allow dropdown to work with similair names with different capitalization
@@ -31,7 +32,7 @@ class LinksScreen extends React.Component {
       matchingNumbers: [],
       bet: 0,
       incrementAmount: 1,
-      buttonOneBackgroundColor: "#FAB913",
+      buttonOneBackgroundColor: '#2f95dc',
       buttonFiveBackgroundColor: " ",
       buttonTenBackgroundColor: " ",
       buttonTwentyBackgroundColor: " ",
@@ -83,7 +84,6 @@ class LinksScreen extends React.Component {
       }
     }
     // console.log(this.state.contacts)
-
     firebase.database().ref('commitments').once('value', (data) => {
       let myKeys = Object.keys(data.toJSON());
       myKeys = myKeys.map(el => { return parseInt(el)});
@@ -98,28 +98,26 @@ class LinksScreen extends React.Component {
   }
 
   makeCommitment = async () => {
-    console.log(firebase.name);
     if (this.state.title !== "" && this.state.commitment !== "" && this.state.chosenPartner !== "" && this.state.chosenPartnerNumber !== "" && this.state.bet !== "") {
-      firebase.database().ref(`commitments/${this.state.lastIndex + 1}`).set(
-        {
+      firebase.database().ref(`commitments/${this.state.lastIndex + 1}`).set({
           commitmentTitle: `${this.state.title}`,
           commitmentDescription: `${this.state.commitment}`,
           commitmentPartnerName: `${this.state.chosenPartner}`,
           commitmentPartnerNum: `${this.state.chosenPartnerNumber}`,
           time: this.calculateTotalSeconds(),
           bet: `${this.state.bet}`,
-        }
-      ).then(() => {
+        })
+        .then(() => {
         console.log('Inserted!');
         alert('Commitment Made')
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.log(error)
       })
     }
     else {
       alert('Please complete all sections')
     }
-
   }
 
   checkIfNameExists = (text) => {
@@ -217,17 +215,6 @@ class LinksScreen extends React.Component {
     }))
   }
 
-  alert = () => {
-    Alert.alert(
-      "Did you fulfill your commitment?",
-      [
-        { text: 'Yes', onPress: () => console.log('Congratulationс 🎉') },
-        { text: "No", onPress: () => console.log(`Payment Sent to ${this.props.name}`) },
-      ],
-      {cancelable: false}
-    )
-  }
-
   render() {
     let { matchingNames, } = this.state
 
@@ -235,7 +222,7 @@ class LinksScreen extends React.Component {
       <View style={styles.container}>
         
         <TextInput
-          style={{ paddingLeft: 10, height: 40, borderColor: '#FAB913', borderWidth: 1.5, marginBottom: 20}}
+          style={{ paddingLeft: 10, height: 40, borderColor: '#2f95dc', borderWidth: 1.5, marginBottom: 20}}
           onChangeText={async (text) => { await this.setState({ title: text }) }}
           placeholder={"Commitment Title "}
         />
@@ -253,7 +240,7 @@ class LinksScreen extends React.Component {
 
         <View style={{paddingTop: 20, height: 550,}}>
           <TextInput
-            style={{ paddingLeft: 10, height: 40, borderColor: '#FAB913', borderWidth: 1.5, }}
+            style={{ paddingLeft: 10, height: 40, borderColor: '#2f95dc', borderWidth: 1.5, }}
             onChangeText={ async (text) => { this.setState((state) => ({ 
               previousNumberOfLettersInCommitmentPartnerTextBox: state.numberOfLettersInCommitmentPartnerTextBox, 
               numberOfLettersInCommitmentPartnerTextBox: text.length })), 
@@ -296,29 +283,30 @@ class LinksScreen extends React.Component {
               onFinish={() => console.log('hello')}
               size={20}
               running={this.state.running}
+              digitStyle={{backgroundColor: '#2f95dc'}}
             />
 
             <View style={{ flexDirection: "row", height: "auto", justifyContent: "space-around", marginTop: 15 }}>
               <TouchableOpacity 
-                style={{borderColor: "#FAB913", borderWidth: 1.5, width: "auto", height: 30, borderRadius: 10, }}
+                style={{borderColor: '#2f95dc', borderWidth: 1.5, width: "auto", height: 30, borderRadius: 10, }}
                 onPress={() => this.setState((state) => ({ days: state.days + 1, running: false}))}
               >
                 <Text style={{paddingTop: 5}} > Days </Text>
               </TouchableOpacity>
               <TouchableOpacity 
-                style={{borderColor: "#FAB913", borderWidth: 1.5, width: "auto", height: 30, borderRadius: 10, }}
+                style={{borderColor: '#2f95dc', borderWidth: 1.5, width: "auto", height: 30, borderRadius: 10, }}
                 onPress={() => this.setState((state) => ({ hours: state.hours + 1, running: false}))}
               >
                 <Text style={{paddingTop: 5}}> Hours </Text>
               </TouchableOpacity>
               <TouchableOpacity 
-                style={{borderColor: "#FAB913", borderWidth: 1.5, width: "auto", height: 30, borderRadius: 10, }}
+                style={{borderColor: '#2f95dc', borderWidth: 1.5, width: "auto", height: 30, borderRadius: 10, }}
                 onPress={() => this.setState((state) => ({ minutes: state.minutes + 1, running: false}))}
               >
                 <Text style={{paddingTop: 5}}> Minutes </Text>
               </TouchableOpacity>
               <TouchableOpacity 
-                style={{borderColor: "#FAB913", borderWidth: 1.5, width: "auto", height: 30, borderRadius: 10, }}
+                style={{borderColor: '#2f95dc', borderWidth: 1.5, width: "auto", height: 30, borderRadius: 10, }}
                 onPress={() => this.setState((state) => ({ seconds: state.seconds + 1, running: false}))}
               >
                 <Text style={{paddingTop: 5}}> Seconds </Text>
@@ -326,7 +314,7 @@ class LinksScreen extends React.Component {
             </View>
 
             <TouchableOpacity 
-                style={{borderColor: "#FAB913", borderWidth: 1.5, width: "auto", height: 30, borderRadius: 10, marginTop: 10 , backgroundColor: "#FAB913",}}
+                style={{borderColor: '#2f95dc', borderWidth: 1.5, width: "auto", height: 30, borderRadius: 10, marginTop: 10 , backgroundColor: '#2f95dc',}}
                 onPress={() => {this.setState((state) => ({ days: 0, hours: 0, minutes: 0, seconds: 0, running: false}))}}
               >
                 <Text style={{paddingTop: 5, alignSelf: "center"}}> Reset Time </Text>
@@ -342,11 +330,11 @@ class LinksScreen extends React.Component {
             BCTen={this.state.buttonTenBackgroundColor}
             BCTwenty={this.state.buttonTwentyBackgroundColor}
             BCOneHundred={this.state.buttonOneHundredBackgroundColor}
-            FunctionOne={() => this.setState(() => ({incrementAmount: 1, buttonOneBackgroundColor: "#FAB913", buttonFiveBackgroundColor: "white", buttonTenBackgroundColor: "white", buttonTwentyBackgroundColor: "white", buttonOneHundredBackgroundColor: "white"}))}
-            FunctionFive={() => this.setState(() => ({incrementAmount: 5, buttonOneBackgroundColor: "white", buttonFiveBackgroundColor: "#FAB913", buttonTenBackgroundColor: "white", buttonTwentyBackgroundColor: "white", buttonOneHundredBackgroundColor: "white"}))}
-            FunctionTen={() => this.setState(() => ({incrementAmount: 10, buttonOneBackgroundColor: "white", buttonFiveBackgroundColor: "white", buttonTenBackgroundColor: "#FAB913", buttonTwentyBackgroundColor: "white", buttonOneHundredBackgroundColor: "white"}))}
-            FunctionTwenty={() => this.setState(() => ({incrementAmount: 20, buttonOneBackgroundColor: "white", buttonFiveBackgroundColor: "white", buttonTenBackgroundColor: "white", buttonTwentyBackgroundColor: "#FAB913", buttonOneHundredBackgroundColor: "white"}))}
-            FunctionOneHundred={() => this.setState(() => ({incrementAmount: 100, buttonOneBackgroundColor: "white", buttonFiveBackgroundColor: "white", buttonTenBackgroundColor: "white", buttonTwentyBackgroundColor: "white", buttonOneHundredBackgroundColor: "#FAB913"}))}
+            FunctionOne={() => this.setState(() => ({incrementAmount: 1, buttonOneBackgroundColor: '#2f95dc', buttonFiveBackgroundColor: "white", buttonTenBackgroundColor: "white", buttonTwentyBackgroundColor: "white", buttonOneHundredBackgroundColor: "white"}))}
+            FunctionFive={() => this.setState(() => ({incrementAmount: 5, buttonOneBackgroundColor: "white", buttonFiveBackgroundColor: '#2f95dc', buttonTenBackgroundColor: "white", buttonTwentyBackgroundColor: "white", buttonOneHundredBackgroundColor: "white"}))}
+            FunctionTen={() => this.setState(() => ({incrementAmount: 10, buttonOneBackgroundColor: "white", buttonFiveBackgroundColor: "white", buttonTenBackgroundColor: '#2f95dc', buttonTwentyBackgroundColor: "white", buttonOneHundredBackgroundColor: "white"}))}
+            FunctionTwenty={() => this.setState(() => ({incrementAmount: 20, buttonOneBackgroundColor: "white", buttonFiveBackgroundColor: "white", buttonTenBackgroundColor: "white", buttonTwentyBackgroundColor: '#2f95dc', buttonOneHundredBackgroundColor: "white"}))}
+            FunctionOneHundred={() => this.setState(() => ({incrementAmount: 100, buttonOneBackgroundColor: "white", buttonFiveBackgroundColor: "white", buttonTenBackgroundColor: "white", buttonTwentyBackgroundColor: "white", buttonOneHundredBackgroundColor: '#2f95dc'}))}
           />
         
         <View style={{ flex: 1, justifyContent: 'flex-end' }}>
@@ -377,7 +365,7 @@ const styles = StyleSheet.create({
   },
   commitment: {
     height: 85, 
-    borderColor: '#FAB913', 
+    borderColor: '#2f95dc', 
     borderWidth: 1.5,
     paddingLeft: 10,
   },
@@ -388,11 +376,11 @@ const styles = StyleSheet.create({
     marginTop: 15,
     height: 50,
     justifyContent: 'center',
-    borderColor: "#FAB913", 
+    borderColor: '#2f95dc', 
     borderWidth: 1.5, 
     width: "auto", 
     borderRadius: 10,
-    backgroundColor: "#FAB913",
+    backgroundColor: '#2f95dc',
     marginTop: 10 
   },
   input: { maxHeight: 40 },
