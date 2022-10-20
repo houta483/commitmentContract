@@ -31,7 +31,7 @@
     "react-native-countdown-component": "^2.6.0",
     "react-native-dropdown-autocomplete": "^1.0.18",
     "react-native-gesture-handler": "~1.5.0",
-    "react-native-reanimated": "~1.4.0",
+    "react-native-reanimated": "~2.10.0",
     "react-native-screens": "2.0.0-alpha.12",
     "react-native-unimodules": "~0.7.0",
     "react-native-web": "~0.11.7",
